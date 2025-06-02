@@ -22,7 +22,12 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
-initSocket(server); // Initialize socket.io with the server
+// Khởi tạo socket.io và gán vào app để router có thể sử dụng
+const socketIo = require('socket.io');
+const io = socketIo(server, { cors: { origin: '*' } });
+app.set('io', io);
+
+initSocket(io); // Truyền io thay vì server vào initSocket
 
 /**
  * Listen on provided port, on all network interfaces.

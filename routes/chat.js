@@ -18,4 +18,15 @@ router.get('/rooms/:roomId/messages', async (req, res) => {
   res.json(messages);
 });
 
+router.post('/messages', async (req, res) => {
+  const { chatRoomId, sender, content } = req.body;
+  const msg = await Message.create({ chatRoomId, sender, content });
+  // Emit socket event cho phòng chat (chỉ emit nếu io tồn tại)
+  const io = req.app.get('io');
+  if (io) {
+    io.to(chatRoomId).emit('newMessage', msg);
+  }
+  res.json(msg);
+});
+
 module.exports = router;
