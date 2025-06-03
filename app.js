@@ -11,12 +11,6 @@ var chatRouter = require('./routes/chat');
 
 var app = express();
 
-mongoose.connect('mongodb://localhost:27017/chatapp', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-
 
 app.use(logger('dev'));
 app.use(express.json());

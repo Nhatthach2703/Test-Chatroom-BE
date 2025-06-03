@@ -7,7 +7,6 @@
 var app = require('../app');
 var debug = require('debug')('test-chatroom:server');
 var http = require('http');
-const initSocket = require('../configs/sockets');
 
 /**
  * Get port from environment and store in Express.
@@ -21,13 +20,6 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-
-// Khởi tạo socket.io và gán vào app để router có thể sử dụng
-const socketIo = require('socket.io');
-const io = socketIo(server, { cors: { origin: '*' } });
-app.set('io', io);
-
-initSocket(io); // Truyền io thay vì server vào initSocket
 
 /**
  * Listen on provided port, on all network interfaces.
