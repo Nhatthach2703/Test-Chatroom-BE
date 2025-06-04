@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 
-const ChatRoomSchema = new mongoose.Schema({
-  name: String,
+const chatRoomSchema = new mongoose.Schema({
+  name: { type: String, default: null },
+  participants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });
 
-module.exports = mongoose.model('ChatRoom', ChatRoomSchema);
+module.exports = mongoose.model('ChatRoom', chatRoomSchema);
